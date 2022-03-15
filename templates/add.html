@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>RegistrationForm</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+		
+		<!-- STYLE CSS -->
+        <link href="{{ url_for('static',filename='css/styles.css')}}" rel="stylesheet" />
+        
+		<link rel="stylesheet" href="{{url_for('static',filename='css/style1.css')}}">
+	</head>
+
+	<body> 
+		<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/"><img src="{{ url_for('static',filename='assets/img/web.png')}}" height="50" width="50"></a>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button> -->
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/post">Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+		
+      <header class="masthead" style="background-image: url('  {{ url_for('static',filename='assets/img/add.jpg ')}}   ')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>{{params['blog_name']}}</h1>
+                            <span class="subheading">{{params['tag_line']}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+		<div class="wrapper">
+			<div class="inner">
+				<form action="/add/{{sno}}" method="post">
+					<h3>Manage your posts here</h3>
+					<p>Add and Edit the posts </p>
+					<label class="form-group">
+						<input type="text" class="form-control" id="title" name="title" value="{{post.title}}"required>
+						<span>Title</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" class="form-control" id="tagline" name="tagline" value="{{post.tagline}}"required>
+						<span for="">Tagline</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" class="form-control" id="slug" name="slug" value="{{post.slug}}" required>
+						<span for="">Slug</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" class="form-control" id="img_file" name="img_file" value="{{post.img_file}}" required>
+						<span for="">Image File</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group" >
+						<textarea name="content" id="content" class="form-control" required>{{post.content}}</textarea>
+						<span for="">Content</span>
+						<span class="border"></span>
+					</label>
+					<button type="submit">Submit 
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+
+<footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="{{params['tw_url']}}" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                   
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{{params['fb_url']}}" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{{params['gh_url']}}" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; {{params['footer']}}</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static',filename='js/scripts.js')}}" ></script>
+	</body>
+ </html>

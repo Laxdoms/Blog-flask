@@ -1,0 +1,21 @@
+{
+  "params":
+  {
+    "local_server": "True",
+    "local_uri": "mysql://root:@localhost/blog",
+    "prod_uri": "mysql://root:@localhost/blog",
+    "tw_url":"https://twitter.com/blog",
+     "fb_url":"https://facebook.com/blog",
+     "gh_url":"https://github.com/blog",
+     "blog_name":"Mystic Diaries",
+     "tag_line": "Give your thoughts a start here...",
+    "gmail-user": "Your mail address",
+    "gmail-password": "Your password",
+    "no_of_posts": 2,
+    "login_img":"login.png",
+    "admin_user": "Eva",
+    "admin_password": "lookthere",
+    "up_loc": "C:\\Users\\hp\\PycharmProjects\\BlogWebsite\\static",
+    "footer": "Mystic Diaries 2022"
+  }
+}
