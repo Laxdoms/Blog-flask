@@ -49,32 +49,77 @@
     
   <body class="text-center">
   
-<main class="form-signin">
-  <form action="/dashboard" method="post">
-    {% set fname='assets/img/' + params['login_img'] %}
-    <img class="mb-4" src="{{url_for('static',filename=fname)}}" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal" style="color: white;">Please sign in</h1>
 
-    <div class="form-floating">
-      <input type="text" class="form-control" id="uname" name="uname" placeholder="username">
-      <label for="unmae">Username</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
-      <label for="pass">Password</label>
-    </div>
-
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; {{params['blog_name']}} 2017–2021</p>
-  </form>
-</main>
+    <main class="form-signin">
+      <div>
+        <button onclick="adminLoginShow()" >ADMIN LOGIN</button>
+        <button onclick="genLoginShow()" >GENERAL LOGIN</button>
+      </div>
+      <div id="admin-login">
+        <span style="color: whitesmoke;">ADMIN LOGIN FORM</span>
+        <form action="/dashboard" method="post">
+          {% set fname='assets/img/' + params['login_img'] %}
+          <img class="mb-4" src="{{url_for('static',filename=fname)}}" alt="" width="72" height="57">
+          <h1 class="h3 mb-3 fw-normal" style="color: white;">Please sign in</h1>
+      
+          <div class="form-floating">
+            <input type="text" class="form-control" id="uname" name="uname" placeholder="username">
+            <label for="unmae">Username</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+            <label for="pass">Password</label>
+          </div>
+      
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+          <p class="mt-5 mb-3 text-muted">&copy; {{params['blog_name']}} 2017–2021</p>
+        </form>  
+      </div>
+      <div id="gen-login">
+        <span style="color: whitesmoke;">GENERAL LOGIN  FORM</span>
+        <form action="/create" method="post">
+          {% set fname='assets/img/' + params['login_img'] %}
+          <img class="mb-4" src="{{url_for('static',filename=fname)}}" alt="" width="72" height="57">
+          <h1 class="h3 mb-3 fw-normal" style="color: white;">Please sign in</h1>
+      
+          <div class="form-floating">
+            <input type="text" class="form-control" id="uname" name="uname" placeholder="username">
+            <label for="unmae">Username</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+            <label for="pass">Password</label>
+          </div>
+      
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+          <p class="mt-5 mb-3 text-muted">&copy; {{params['blog_name']}} 2017–2021</p>
+        </form>
+      </div>
+    </main>
 
 
     
   </body>
+  <script>
+    function adminLoginShow(){
+        // alert("adminLoginShow");
+        document.getElementById("admin-login").style.display = "block";
+        document.getElementById("gen-login").style.display = "none";
+      }
+      function genLoginShow(){
+        // alert("genLoginShow");
+        document.getElementById("admin-login").style.display = "none";
+        document.getElementById("gen-login").style.display = "block";
+    }
+  </script>
 </html>

@@ -42,3 +42,10 @@ body {
 
 
 
+/* my custom css  */
+#admin-login {
+  display: block;
+}
+#gen-login {
+  display: none;
+}

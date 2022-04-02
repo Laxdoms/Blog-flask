@@ -8,6 +8,8 @@ import math
 import os
 # import socket
 # socket.getaddrinfo('localhost', 8080)
+with open('credentials.json','r') as b:
+    data=json.load(b)
 
 with open('config.json','r') as c:
     params=json.load(c)["params"]
@@ -51,6 +53,7 @@ class Posts(db.Model):
         tagline = db.Column(db.String(120), nullable=False)
         date = db.Column(db.String(30), nullable=True)
         img_file = db.Column(db.String(50), nullable=True)
+        author = db.Column(db.String(120), nullable=True)
 
 
 @app.route('/')
@@ -180,5 +183,69 @@ def contact():
 def post_route(post_slug):
     post=Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html',params=params,post=post)
+
+@app.route('/create',methods=['GET','POST'])
+def create():
+    username=None
+    userpass=None
+    for item in data['credentials']:
+      print('hello')
+      print(request.method)
+      if ('user' in session and session['user'] == item['username']):
+        posts = Posts.query.all()
+        return render_template('dashboard.html', params=params,posts=posts)
+      if (request.method=='POST'):
+        print('hi')
+        username=request.form.get('uname')
+        userpass = request.form.get('pass')
+
+    # username='uname'
+    # userpass='pass'
+
+     # if(username==params['admin_user'] and userpass==params['admin_password']):
+     #    session['user']=username
+     #    posts=Posts.query.all()
+     #    return render_template('create.html', params=params,posts=posts)
+    print(username)
+    print(userpass)
+    for obj in data['credentials']:
+         print(obj["username"], obj["password"], sep=' ')
+         if (username == obj["username"] and userpass == obj["password"]):
+             session['user'] = username
+             posts = Posts.query.all()
+             return render_template('create.html', params=params, posts=posts)
+
+    return render_template('login.html',params=params)
+
+@app.route('/add/<string:sno>',methods=['GET','POST'])
+def add1(sno):
+  for item in data['credentials']:
+    if ('user' in session and session['user'] == item['username']):
+        if request.method=='POST':
+            box_title=request.form.get('title')
+            tagline=request.form.get('tagline')
+            slug=request.form.get('slug')
+            content=request.form.get('content')
+            img_file=request.form.get('img_file')
+            date=datetime.now()
+            # post = None
+            if sno=='0':
+                post=Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date)
+                db.session.add(post)
+                db.session.commit()
+
+            else:
+                post=Posts.query.filter_by(sno=sno).first()
+                post.title=box_title
+                post.slug=slug
+                post.tagline=tagline
+                post.content=content
+                post.img_file=img_file
+                post.date=date
+                db.session.commit()
+                return redirect('/add/'+sno)
+        post = Posts.query.filter_by(sno=sno).first()
+        return render_template('add.html', params=params, post=post,sno=sno)
+
 
 app.run(debug=True)
