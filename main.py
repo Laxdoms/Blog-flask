@@ -110,18 +110,21 @@ def dashboard():
 
 @app.route('/add/<string:sno>',methods=['GET','POST'])
 def add(sno):
-
+    print('ok')
     if ('user' in session and session['user'] == params['admin_user']):
+        print('ok2')
         if request.method=='POST':
             box_title=request.form.get('title')
             tagline=request.form.get('tagline')
             slug=request.form.get('slug')
             content=request.form.get('content')
             img_file=request.form.get('img_file')
+            author=session['user']
+            print(author, 'author /add/sno')
             date=datetime.now()
             # post = None
             if sno=='0':
-                post=Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date)
+                post=Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date, author=author)
                 db.session.add(post)
                 db.session.commit()
 
@@ -137,7 +140,38 @@ def add(sno):
                 return redirect('/add/'+sno)
         post = Posts.query.filter_by(sno=sno).first()
         return render_template('add.html', params=params, post=post,sno=sno)
+    else:
+        print('ok3 multiple user se aya hai')
+        for item in data['credentials']:
+            if ('user' in session and session['user'] == item['username']):
+                if request.method=='POST':
+                    box_title=request.form.get('title')
+                    tagline=request.form.get('tagline')
+                    slug=request.form.get('slug')
+                    content=request.form.get('content')
+                    img_file=request.form.get('img_file')
+                    author = session['user']
+                    print(author, 'multiple user author /add/sno')
+                    date=datetime.now()
+                    # post = None
+                    if sno=='0':
+                        post=Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date, author=author)
+                        db.session.add(post)
+                        db.session.commit()
 
+                    else:
+                        post=Posts.query.filter_by(sno=sno).first()
+                        post.title=box_title
+                        post.slug=slug
+                        post.tagline=tagline
+                        post.content=content
+                        post.img_file=img_file
+                        post.date=date
+                        db.session.commit()
+                        return redirect('/add/'+sno)
+                post = Posts.query.filter_by(sno=sno).first()
+                return render_template('add.html', params=params, post=post,sno=sno)
+    print('ok4')
 
 @app.route('/upload',methods=['GET','POST'])
 def upload():
@@ -217,35 +251,35 @@ def create():
 
     return render_template('login.html',params=params)
 
-@app.route('/add/<string:sno>',methods=['GET','POST'])
-def add1(sno):
-  for item in data['credentials']:
-    if ('user' in session and session['user'] == item['username']):
-        if request.method=='POST':
-            box_title=request.form.get('title')
-            tagline=request.form.get('tagline')
-            slug=request.form.get('slug')
-            content=request.form.get('content')
-            img_file=request.form.get('img_file')
-            date=datetime.now()
-            # post = None
-            if sno=='0':
-                post=Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date)
-                db.session.add(post)
-                db.session.commit()
-
-            else:
-                post=Posts.query.filter_by(sno=sno).first()
-                post.title=box_title
-                post.slug=slug
-                post.tagline=tagline
-                post.content=content
-                post.img_file=img_file
-                post.date=date
-                db.session.commit()
-                return redirect('/add/'+sno)
-        post = Posts.query.filter_by(sno=sno).first()
-        return render_template('add.html', params=params, post=post,sno=sno)
+# @app.route('/add/<string:sno>',methods=['GET','POST'])
+# def add1(sno):
+#   for item in data['credentials']:
+#     if ('user' in session and session['user'] == item['username']):
+#         if request.method=='POST':
+#             box_title=request.form.get('title')
+#             tagline=request.form.get('tagline')
+#             slug=request.form.get('slug')
+#             content=request.form.get('content')
+#             img_file=request.form.get('img_file')
+#             date=datetime.now()
+#             # post = None
+#             if sno=='0':
+#                 post=Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date)
+#                 db.session.add(post)
+#                 db.session.commit()
+#
+#             else:
+#                 post=Posts.query.filter_by(sno=sno).first()
+#                 post.title=box_title
+#                 post.slug=slug
+#                 post.tagline=tagline
+#                 post.content=content
+#                 post.img_file=img_file
+#                 post.date=date
+#                 db.session.commit()
+#                 return redirect('/add/'+sno)
+#         post = Posts.query.filter_by(sno=sno).first()
+#         return render_template('add.html', params=params, post=post,sno=sno)
 
 
 app.run(debug=True)
