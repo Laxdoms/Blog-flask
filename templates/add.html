@@ -27,7 +27,7 @@
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/post">Post</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/select">Select</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a></li>
                     </ul>
                 </div>
@@ -69,6 +69,11 @@
 					<label class="form-group">
 						<input type="text" class="form-control" id="img_file" name="img_file" value="{{post.img_file}}" required>
 						<span for="">Image File</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" class="form-control" id="category" name="category" value="{{post.category}}" required>
+						<span for="">category</span>
 						<span class="border"></span>
 					</label>
 					<label class="form-group" >

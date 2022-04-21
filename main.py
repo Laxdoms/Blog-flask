@@ -57,6 +57,7 @@ class Posts(db.Model):
     date = db.Column(db.String(30), nullable=True)
     img_file = db.Column(db.String(50), nullable=True)
     author = db.Column(db.String(120), nullable=True)
+    category = db.Column(db.String(120), nullable=True)
 
 
 @app.route('/')
@@ -110,7 +111,7 @@ def dashboard():
             return hash1
 
         print(type(myhash(userpass)))
-        userpass=str(myhash(userpass))
+        userpass = str(myhash(userpass))
 
     # username='uname'
     # userpass='pass'
@@ -139,13 +140,14 @@ def add(sno):
             slug = request.form.get('slug')
             content = request.form.get('content')
             img_file = request.form.get('img_file')
+            category = request.form.get('category')
             author = session['user']
             print(author, 'author /add/sno')
             date = datetime.now()
             # post = None
             if sno == '0':
                 post = Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file, date=date,
-                             author=author)
+                             author=author, category=category)
                 db.session.add(post)
                 db.session.commit()
 
@@ -159,6 +161,7 @@ def add(sno):
                 post.content = content
                 post.img_file = img_file
                 post.date = date
+                post.category = category
                 db.session.commit()
                 return redirect('/add/' + sno)
         post = Posts.query.filter_by(sno=sno).first()
@@ -173,13 +176,14 @@ def add(sno):
                     slug = request.form.get('slug')
                     content = request.form.get('content')
                     img_file = request.form.get('img_file')
+                    category = request.form.get('category')
                     author = session['user']
                     print(author, 'multiple user author /add/sno')
                     date = datetime.now()
                     # post = None
                     if sno == '0':
                         post = Posts(title=box_title, slug=slug, tagline=tagline, content=content, img_file=img_file,
-                                     date=date, author=author)
+                                     date=date, author=author, category=category)
                         db.session.add(post)
                         db.session.commit()
 
@@ -190,6 +194,7 @@ def add(sno):
                         post.tagline = tagline
                         post.content = content
                         post.img_file = img_file
+                        post.category = category
                         post.date = date
                         print(session['user'], post.author, author, 'hello')
                         if session['user'] == post.author:
@@ -305,6 +310,23 @@ def create():
             return render_template('create.html', params=params, posts=posts)
 
     return render_template('login.html', params=params)
+
+
+@app.route('/select', methods=['GET', 'POST'])
+def select():
+    return render_template('cat.html', params=params)
+
+
+@app.route('/blog/<string:category>')
+def blog(category):
+    posts = Posts.query.filter_by(category=category).all()
+    print(len(posts))
+    print(posts)
+
+
+    # [0: params['no_of_posts']]
+
+    return render_template('category.html', params=params, posts=posts)
 
 
 # @app.route('/add/<string:sno>',methods=['GET','POST'])
