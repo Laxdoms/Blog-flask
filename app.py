@@ -7,7 +7,7 @@ import json
 import math
 import os
 
-port = int(os.environ.get("PORT", 5000))
+
 
 with open('credentials.json', 'r') as b:
     data = json.load(b)
