@@ -359,5 +359,4 @@ def blog(category):
 #         post = Posts.query.filter_by(sno=sno).first()
 #         return render_template('add.html', params=params, post=post,sno=sno)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+app.run(debug=True)
