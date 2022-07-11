@@ -28,7 +28,7 @@ protobuf==3.19.4
 pyinstaller==4.8
 pyinstaller-hooks-contrib==2022.0
 pypiwin32==223
-pywin32==303
+
 pywin32-ctypes==0.2.0
 requests==2.27.1
 SQLAlchemy==1.4.31
