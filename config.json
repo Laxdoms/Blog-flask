@@ -2,7 +2,7 @@
   "params":
   {
     "local_server": "True",
-    "local_uri": "mysql://root:@localhost/blog",
+    "local_uri": "postgres://rnnesqtmxugktv:c73e80e4137f3918481ba3ac87d2cd1a36d28033e6bca618badc8bd82c393469@ec2-52-20-166-21.compute-1.amazonaws.com:5432/daand2qkasoson",
     "prod_uri": "mysql://root:@localhost/blog",
     "tw_url":"https://twitter.com/blog",
      "fb_url":"https://facebook.com/blog",
